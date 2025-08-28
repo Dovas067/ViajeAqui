@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViajeAqui Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap">
+    <style>
+        :root {
+            --bg-color: #0a0e17;
+            --text-color: #f0f6fc;
+            --card-bg: rgba(16, 24, 39, 0.8);
+            --accent: #ff5e63;
+            --accent-gradient: linear-gradient(135deg, #ff5e63, #ff8a47);
+            --secondary: #4361ee;
+            --dark-blue: #0f172a;
+            --light-blue: #38bdf8;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f0f7ff;
+            --text-color: #1a202c;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --accent: #4361ee;
+            --accent-gradient: linear-gradient(135deg, #4361ee, #38bdf8);
+            --secondary: #ff5e63;
+            --dark-blue: #1e40af;
+            --light-blue: #3b82f6;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 15% 50%, rgba(67, 97, 238, 0.1) 0%, transparent 25%),
+                            radial-gradient(circle at 85% 30%, rgba(255, 94, 99, 0.1) 0%, transparent 25%);
+            transition: var(--transition);
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        #toggle-theme {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        #toggle-theme:hover {
+            transform: rotate(15deg);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        #hero {
+            position: relative;
+            text-align: center;
+            padding: 8rem 2rem;
+            background: linear-gradient(to bottom, rgba(10, 14, 23, 0.8), rgba(10, 14, 23, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23101827" width="100" height="100"/><path fill="%23182238" d="M0 0L100 100"/><path fill="%23182238" d="M100 0L0 100"/></svg>');
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        #hero h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #c2d5ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        #hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(255, 94, 99, 0.4);
+            transition: var(--transition);
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 94, 99, 0.6);
+        }
+
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        section h2 i {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card, #map {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .card:hover, #map:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        #map-container {
+            margin-top: 1.5rem;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 400px;
+            background: var(--dark-blue);
+            position: relative;
+        }
+
+        #map-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        #map-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .map-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .map-btn:hover {
+            background: var(--accent-gradient);
+        }
+
+        #destiny-select {
+            width: 100%;
+            padding: 1.2rem;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 1.5rem;
+            background: var(--glass-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        #preferencias-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .interesse-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .interesse-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .interesse-card.selected {
+            background: var(--accent-gradient);
+            border-color: transparent;
+        }
+
+        .interesse-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        #gerar-roteiro {
+            display: block;
+            margin: 0 auto;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        #gerar-roteiro:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 94, 99, 0.4);
+        }
+
+        #roteiro-output {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .dia-roteiro {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .dia-roteiro:last-child {
+            border-bottom: none;
+        }
+
+        #clima-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        #cidade-input {
+            flex: 1;
+            padding: 1.2rem;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        #buscar-clima {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 0 2rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        #buscar-clima:hover {
+            transform: scale(1.05);
+        }
+
+        #clima-info {
+            padding: 2rem;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .clima-temp {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #post-form {
+            margin-bottom: 2rem;
+        }
+
+        #postText {
+            width: 100%;
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 1rem;
+            min-height: 150px;
+            resize: vertical;
+            background: var(--glass-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        #postText:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 94, 99, 0.3);
+        }
+
+        #post-form button {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        #post-form button:hover {
+            transform: scale(1.05);
+        }
+
+        #feed {
+            list-style: none;
+        }
+
+        #feed li {
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            position: relative;
+            padding-left: 4rem;
+            transition: var(--transition);
+        }
+
+        #feed li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        #feed li::before {
+            content: '✈️';
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--dark-blue);
+            margin-top: 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-gradient);
+        }
+
+        footer p:first-child {
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-gradient);
+            transform: translateY(-5px);
+        }
+
+        /* Animações */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Efeito de partículas */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+
+        /* Novos estilos para as funcionalidades adicionadas */
+        .favorite-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: #ccc;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .favorite-btn.active {
+            color: var(--accent);
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .destiny-card {
+            position: relative;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .destiny-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .destiny-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .destiny-card-content {
+            padding: 1.5rem;
+        }
+
+        .destiny-card h3 {
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .destiny-card p {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .rating {
+            display: flex;
+            gap: 0.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .rating i {
+            color: #FFD700;
+        }
+
+        .destinies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .budget-calculator {
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .budget-calculator h3 {
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .budget-input {
+            margin-bottom: 1rem;
+        }
+
+        .budget-input label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .budget-input input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            color: var(--text-color);
+        }
+
+        .budget-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .testimonials-slider {
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background: var(--glass-bg);
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .testimonial {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .slider-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-btn:hover {
+            background: var(--accent-gradient);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--glass-bg);
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid var(--glass-border);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .view-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-btn.active {
+            background: var(--accent-gradient);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            nav {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            #hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 4rem 1rem;
+            }
+            
+            #preferencias-form {
+                grid-template-columns: 1fr;
+            }
+            
+            #clima-form {
+                flex-direction: column;
+            }
+            
+            .destinies-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="particles" id="particles"></div>
+    
+    <header>
+        <h1><i class="fas fa-globe-americas"></i> ViajeAqui</h1>
+        <nav>
+            <a href="#mapa">Mapa</a>
+            <a href="#roteiros">Roteiros</a>
+            <a href="#destinos">Destinos</a>
+            <a href="#clima">Clima</a>
+            <a href="#comunidade">Comunidade</a>
+        </nav>
+        <button id="toggle-theme" aria-label="Alternar tema">🌙</button>
+    </header>
+    
+    <main>
+        <section id="hero">
+            <h2>Explore o Mundo com o ViajeAqui</h2>
+            <p>Descubra destinos incríveis, roteiros personalizados e experiências únicas com nossa plataforma premium de viagens.</p>
+            <button class="cta">Comece Sua Jornada</button>
+        </section>
+        
+        <section id="mapa">
+            <h2><i class="fas fa-map-marked-alt"></i> Mapa Interativo</h2>
+            <article id="map">
+                <p>Selecione um destino para explorar:</p>
+                <select id="destiny-select">
+                    <option value="">-- Escolha um destino --</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro, Brasil</option>
+                    <option value="Paris">Paris, França</option>
+                    <option value="Tóquio">Tóquio, Japão</option>
+                    <option value="Nova York">Nova York, EUA</option>
+                    <option value="Bali">Bali, Indonésia</option>
+                </select>
+                
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="map">Mapa</button>
+                    <button class="view-btn" data-view="satellite">Satélite</button>
+                    <button class="view-btn" data-view="terrain">Terreno</button>
+                </div>
+                
+                <figure id="map-container">
+                    <img id="map-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMTYyMDJlO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwYTA2MTU7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KICA8dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuNyI+U2VsZWNpb25lIHVtIGRlc3Rpbm8gcGFyYSB2ZXIgbyBtYXBhPC90ZXh0Pgo8L3N2Zz4=" alt="Mapa de destinos" />
+                    <div id="map-controls">
+                        <button class="map-btn"><i class="fas fa-search-plus"></i></button>
+                        <button class="map-btn"><i class="fas fa-search-minus"></i></button>
+                        <button class="map-btn"><i class="fas fa-location-arrow"></i></button>
+                        <button class="map-btn" id="add-marker-btn"><i class="fas fa-map-marker-alt"></i></button>
+                    </div>
+                </figure>
+            </article>
+        </section>
+        
+        <section id="destinos">
+            <h2><i class="fas fa-map-pin"></i> Destinos Populares</h2>
+            <div class="destinies-grid" id="destinies-grid">
+                <!-- Destinos serão carregados via JavaScript -->
+            </div>
+        </section>
+        
+        <section id="roteiros">
+            <h2><i class="fas fa-route"></i> Roteiros Personalizados</h2>
+            <article class="card">
+                <p>Selecione seus interesses para criar um roteiro único:</p>
+                
+                <div class="progress-bar">
+                    <div class="progress" id="progress-bar"></div>
+                </div>
+                
+                <form id="preferencias-form">
+                    <label class="interesse-card">
+                        <input type="checkbox" name="interesse" value="praia" hidden>
+                        <i class="fas fa-umbrella-beach"></i>
+                        <span>Praia</span>
+                    </label>
+                    <label class="interesse-card">
+                        <input type="checkbox" name="interesse" value="montanha" hidden>
+                        <i class="fas fa-mountain"></i>
+                        <span>Montanha</span>
+                    </label>
+                    <label class="interesse-card">
+                        <input type="checkbox" name="interesse" value="cidade" hidden>
+                        <i class="fas fa-city"></i>
+                        <span>Cidade</span>
+                    </label>
+                    <label class="interesse-card">
+                        <input type="checkbox" name="interesse" value="aventura" hidden>
+                        <i class="fas fa-hiking"></i>
+                        <span>Aventura</span>
+                    </label>
+                    <label class="interesse-card">
+                        <input type="checkbox" name="interesse" value="cultural" hidden>
+                        <i class="fas fa-landmark"></i>
+                        <span>Cultural</span>
+                    </label>
+                </form>
+                
+                <div class="budget-calculator">
+                    <h3>Calculadora de Orçamento</h3>
+                    <div class="budget-input">
+                        <label for="budget">Orçamento disponível (R$):</label>
+                        <input type="number" id="budget" min="0" placeholder="Digite seu orçamento">
+                    </div>
+                    <div class="budget-input">
+                        <label for="days">Duração da viagem (dias):</label>
+                        <input type="number" id="days" min="1" placeholder="Número de dias">
+                    </div>
+                    <button class="cta" id="calculate-budget">Calcular Orçamento</button>
+                    <div class="budget-result" id="budget-result"></div>
+                </div>
+                
+                <button id="gerar-roteiro">Gerar Roteiro Personalizado</button>
+                <output id="roteiro-output"></output>
+            </article>
+        </section>
+        
+        <section id="clima">
+            <h2><i class="fas fa-cloud-sun"></i> Clima em Tempo Real</h2>
+            <article class="card" id="weather">
+                <form id="clima-form">
+                    <input type="text" id="cidade-input" placeholder="Informe uma cidade para ver o clima">
+                    <button type="button" id="buscar-clima">Buscar</button>
+                </form>
+                <div id="clima-info">
+                    <i class="fas fa-sun" style="font-size: 3rem; color: #FFD700;"></i>
+                    <p class="clima-temp">25°C</p>
+                    <p>Ensolarado • Umidade: 65%</p>
+                    <p>Rio de Janeiro, Brasil</p>
+                </div>
+            </article>
+        </section>
+        
+        <section id="comunidade">
+            <h2><i class="fas fa-users"></i> Comunidade</h2>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial">
+                    <p class="testimonial-content">"O ViajeAqui transformou completamente minha experiência de viagem. Roteiros incríveis e dicas valiosas!"</p>
+                    <p class="testimonial-author">- Maria Silva</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            
+            <form id="post-form">
+                <textarea id="postText" placeholder="Compartilhe sua experiência de viagem..."></textarea>
+                <div class="rating-input">
+                    <span>Avalie sua experiência:</span>
+                    <div class="rating" id="rating-input">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+                </div>
+                <button type="button" onclick="addPost()">Publicar</button>
+            </form>
+            <ul id="feed"></ul>
+        </section>
+    </main>
+    
+    <footer>
+        <p>🌍 ViajeAqui Premium - Transformando suas viagens em experiências inesquecíveis</p>
+        <div class="social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+    </footer>
+    
+    <!-- Modal para detalhes do destino -->
+    <div class="modal" id="destiny-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" src="" alt="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin: 1rem 0;">
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(128 avaliações)</span>
+            </div>
+            <p id="modal-description"></p>
+            <h3>Atrações Principais</h3>
+            <ul id="modal-attractions"></ul>
+            <button class="cta" style="margin-top: 1.5rem;">Ver Roteiros para este Destino</button>
+        </div>
+    </div>
+    
+    <!-- Sistema de notificações -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text"></span>
+    </div>
+
+    <script>
+        // Dados dos destinos
+        const destinos = [
+            {
+                id: 1,
+                nome: "Rio de Janeiro",
+                pais: "Brasil",
+                imagem: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMGM1MWIyO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDJiNzc7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KICA8Y2lyY2xlIGN4PSIyMDAiIGN5PSIyMDAiIHI9IjUwIiBmaWxsPSIjZmZjZjJjIiBmaWxsLW9wYWNpdHk9IjAuNyIgLz4KICA8Y2lyY2xlIGN4PSI2MDAiIGN5PSIyNTAiIHI9IjcwIiBmaWxsPSIjZmZjZjJjIiBmaWxsLW9wYWNpdHk9IjAuNSIgLz4KICA8dGV4dCB4PSI0MDAiIHk9IjMwMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LXdlaWdodD0iYm9sZCI+UmlvIGRlIEphbmVpcm88L3RleHQ+Cjwvc3ZnPg==",
+                descricao: "Conhecida como Cidade Maravilhosa, o Rio de Janeiro é famoso por suas praias deslumbrantes, montanhas icônicas e vibrante cultura.",
+                atracoes: ["Cristo Redentor", "Pão de Açúcar", "Copacabana", "Floresta da Tijuca"],
+                rating: 4.5
+            },
+            {
+                id: 2,
+                nome: "Paris",
+                pais: "França",
+                imagem: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNzIwOWZhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM1YTAxYjI7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KICA8cGF0aCBkPSJNMzAwLDMwMCBRNDAwLDIwMCA1MDAsMzAwIFQ3MDAsMjAwIiBzdHJva2U9IiNmZmNmMmMiIHN0cm9rZS13aWR0aD0iOCIgZmlsbD0ibm9uZSIgLz4KICA8Y2lyY2xlIGN4PSI0MDAiIGN5PSIyNTAiIHI9IjQwIiBmaWxsPSIjZmZjZjJjIiBmaWxsLW9wYWNpdHk9IjAuNyIgLz4KICA8dGV4dCB4PSI0MDAiIHk9IjQwMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LXdlaWdodD0iYm9sZCI+UGFyaXM8L3RleHQ+Cjwvc3ZnPg==",
+                descricao: "A Cidade Luz é famosa por sua arte, arquitetura, cultura e gastronomia. Lar de monumentos icônicos como a Torre Eiffel.",
+                atracoes: ["Torre Eiffel", "Museu do Louvre", "Arco do Triunfo", "Catedral de Notre-Dame"],
+                rating: 4.8
+            },
+            {
+                id: 3,
+                nome: "Tóquio",
+                pais: "Japão",
+                imagem: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmYwMDI3O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNjYTAwMDA7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KICA8Y2lyY2xlIGN4PSI0MDAiIGN5PSIyNTAiIHI9IjgwIiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuOCIgLz4KICA8dGV4dCB4PSI0MDAiIHk9IjQwMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LXdlaWdodD0iYm9sZCI+VG9xdW88L3RleHQ+Cjwvc3ZnPg==",
+                descricao: "Uma metrópole vibrante que combina ultramoderno com tradicional, desde arranha-céus iluminados por neon a templos históricos.",
+                atracoes: ["Senso-ji", "Tokyo Skytree", "Shibuya Crossing", "Palácio Imperial"],
+                rating: 4.7
+            }
+        ];
+
+        // Criar estrelas de fundo
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Criar partículas flutuantes
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.width = `${Math.random() * 20 + 5}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Tema claro/escuro
+        const themeToggle = document.getElementById('toggle-theme');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙';
+            }
+        });
+
+        // Interatividade dos cards de interesse
+        const interesseCards = document.querySelectorAll('.interesse-card');
+        interesseCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const checkbox = card.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                card.classList.toggle('selected', checkbox.checked);
+                updateProgressBar();
+            });
+        });
+
+        // Atualizar barra de progresso
+        function updateProgressBar() {
+            const checked = document.querySelectorAll('input[name="interesse"]:checked').length;
+            const total = document.querySelectorAll('input[name="interesse"]').length;
+            const progress = (checked / total) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        // Mapa interativo
+        const destinoSelect = document.getElementById('destiny-select');
+        const mapImage = document.getElementById('map-image');
+        const mapasDestinos = {
+            'Rio de Janeiro': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBoZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMGM1MWIyO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDJiNzc7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KICA8Y2lyY2xlIGN4PSIyMDAiIGN5PSIyMDAiIHI9IjUwIiBmaWxsPSIjZmZjZjJjIiBmaWxsLW9wYWNpdHk9IjAuNyIgLz4KICA8Y2lyY2xlIGN4PSI2MDAiIGN5PSIyNTAiIHI9IjcwIiBmaWxsPSIjZmZjZjJjIiBmaWxsLW9wYWNpdHk9IjAuNSIgLz4KICA8dGV4dCB4PSI0MDAiIHk9IjMwMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LXdlaWdodD0iYm9sZCI+UmlvIGRlIEphbmVpcm88L3RleHQ+Cjwvc3ZnPg==',
+            'Paris': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNzIwOWZhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM1YTAxYjI7c3RvcC1vcGFjaXRyOjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KICA8cGF0aCBkPSJNMzAwLDMwMCBRNDAwLDIwMCA1MDAsMzAwIFQ3MDAsMjAwIiBzdHJva2U9IiNmZmNmMmMiIHN0cm9rZS13aWR0aD0iOCIgZmlsbD0ibm9uZSIgLz4KICA8Y2lyY2xlIGN4PSI0MDAiIGN5PSIyNTAiIHI9IjQwIiBmaWxsPSIjZmZjZjJjIiBmaWxsLW9wYWNpdHk9IjAuNyIgLz4KICA8dGV4dCB4PSI0MDAiIHk9IjQwMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LXdlaWdodD0iYm9sZCI+UGFyaXM8L3RleHQ+Cjwvc3ZnPg==',
+            'Tóquio': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmYwMDI3O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wL
