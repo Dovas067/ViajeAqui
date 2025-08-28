@@ -8,3 +8,9 @@ O site se diferencia por disponibilizar recursos práticos tanto para turistas q
 Esse projeto pode ser caracterizado como extensionista porque conecta saberes acadêmicos às demandas reais da sociedade. Ele extrapola os muros da instituição de ensino ao aplicar conhecimentos de tecnologia, design, geografia, turismo e comunicação para criar uma solução com impacto direto na comunidade. O ViajeAqui não se restringe a oferecer apenas uma experiência digital: ele contribui para o desenvolvimento local, fomenta o turismo regional, incentiva a economia criativa e promove a troca de saberes entre estudantes, professores, moradores e viajantes.
 
 Além disso, trata-se de uma iniciativa com potencial de inclusão social, já que possibilita acesso facilitado a informações por meio do modo offline, garante orientações úteis para pessoas de diferentes idiomas e perfis, e valoriza o conhecimento dos próprios moradores como protagonistas do turismo local. Dessa forma, o projeto assume papel transformador, unindo inovação tecnológica, impacto social e desenvolvimento cultural e econômico, alinhando-se plenamente aos princípios de um projeto de extensão universitária.
+
+<img width="1919" height="805" alt="Captura de tela 2025-08-28 200513" src="https://github.com/user-attachments/assets/2f9611eb-9170-48b5-b948-9239853929ab" />
+<img width="1915" height="1018" alt="Captura de tela 2025-08-28 200355" src="https://github.com/user-attachments/assets/9eb2a554-8e04-4d46-94f1-77cca92de05e" />
+<img width="1919" height="371" alt="Captura de tela 2025-08-28 195958" src="https://github.com/user-attachments/assets/6c087c10-d4cd-48fe-8bb2-5c6e4ce3414a" />
+
+
