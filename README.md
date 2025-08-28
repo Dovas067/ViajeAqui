@@ -1,5 +1,5 @@
 # ViajeAQUI
-Texto explicativo
+
 
 O projeto ViajeAqui nasce com a proposta de criar uma plataforma digital inteligente para auxiliar viajantes em suas experiências turísticas, oferecendo informações personalizadas de acordo com a localização do usuário e seus interesses. A ferramenta integra funcionalidades como recomendações de pontos turísticos, serviços essenciais, roteiros customizados, informações em tempo real, conversor de moedas, tradutor básico e checklist de viagem. Além disso, promove a interação entre visitantes e moradores locais, valorizando a cultura regional por meio de dicas e relatos autênticos.
 
