@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ViajeAqui — seu guia inteligente de viagens</title>
+  <meta name="theme-color" content="#2860e0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-96.png" sizes="96x96">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>ViajeAqui</h1>
+    <nav aria-label="Navegação principal">
+      <ul>
+        <li><a href="#home" class="active">Início</a></li>
+        <li><a href="#mapa">Mapa</a></li>
+        <li><a href="#roteiros">Roteiros</a></li>
+        <li><a href="#tempo-real">Tempo Real</a></li>
+        <li><a href="#servicos">Guia Local</a></li>
+        <li><a href="#comunidade">Comunidade</a></li>
+        <li><a href="#conversor">Câmbio & Tradução</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+        <li><a href="#transporte">Transporte</a></li>
+        <li><a href="#offline">Modo Offline</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home">
+      <h2>Bem-vindo(a) 👋</h2>
+      <article class="card">
+        <p>Permita a localização para recomendações por perto e um mapa centrado em você.</p>
+        <p><button class="primary" id="btn-locate">Ativar localização</button>
+           <button class="ghost" id="btn-notify">Ativar notificações</button></p>
+        <p><small>Dica: adicione este site à tela inicial para usar como app (PWA).</small></p>
+      </article>
+      <article class="card" id="grid-two">
+        <section>
+          <h3>Resumo do destino</h3>
+          <p id="summary-destino">Use o mapa para ver atrações e trace roteiros personalizados.</p>
+        </section>
+        <aside>
+          <h3>Clima agora</h3>
+          <p id="clima-agora">—</p>
+          <p><button class="ghost" id="btn-atualizar-clima">Atualizar clima</button></p>
+        </aside>
+      </article>
+    </section>
+
+    <section id="mapa" class="hidden">
+      <h2>Mapa interativo</h2>
+      <section id="map" aria-label="Mapa com sua localização"></section>
+      <article class="card">
+        <h3>Buscar por categoria</h3>
+        <form id="form-busca">
+          <label for="categoria">Categoria</label>
+          <select id="categoria">
+            <option value="tourism">Pontos turísticos</option>
+            <option value="amenity=restaurant">Restaurantes</option>
+            <option value="tourism=hotel">Hotéis</option>
+            <option value="amenity=pharmacy">Farmácias</option>
+            <option value="amenity=atm">Caixas eletrônicos</option>
+            <option value="public_transport">Transporte público</option>
+          </select>
+          <button class="primary" type="submit">Mostrar no mapa (raio 2km)</button>
+          <p><small>Fonte: OpenStreetMap (quando disponível). Respeite limites da Overpass API.</small></p>
+        </form>
+      </article>
+    </section>
+
+    <section id="roteiros" class="hidden">
+      <h2>Roteiros personalizados</h2>
+      <article class="card">
+        <form id="form-roteiro">
+          <label for="dias">Quantos dias?</label>
+          <input id="dias" type="number" min="1" max="30" value="3" required>
+          <label for="interesses">Interesses</label>
+          <select id="interesses" multiple>
+            <option value="natureza">natureza</option>
+            <option value="cultura">cultura</option>
+            <option value="gastronomia">gastronomia</option>
+            <option value="esportes">esportes</option>
+            <option value="compras">compras</option>
+          </select>
+          <label for="orcamento">Orçamento (por dia, em moeda local)</label>
+          <input id="orcamento" type="number" min="0" placeholder="Ex: 300">
+          <label for="estilo">Estilo de viagem</label>
+          <select id="estilo">
+            <option value="calmo">calmo</option>
+            <option value="aventureiro">aventureiro</option>
+            <option value="familia">família</option>
+          </select>
+          <button type="submit" class="primary">Gerar roteiro</button>
+          <button id="btn-baixar-roteiro" type="button" class="ghost">Baixar roteiro (.txt)</button>
+        </form>
+      </article>
+      <article class="card" id="resultado-roteiro">
+        <h3>Seu roteiro</h3>
+        <section id="roteiro-lista">Preencha o formulário para gerar.</section>
+      </article>
+      <article class="card">
+        <h3>Meus roteiros salvos</h3>
+        <ul id="roteiros-salvos"></ul>
+      </article>
+    </section>
+
+    <section id="tempo-real" class="hidden">
+      <h2>Informações em tempo real</h2>
+      <article class="card">
+        <h3>Clima</h3>
+        <p id="tempo-resumo">—</p>
+        <p><button id="btn-previsao" class="primary">Ver previsão (48h)</button></p>
+        <section id="previsao-48h"></section>
+      </article>
+      <article class="card">
+        <h3>Alertas & Ofertas</h3>
+        <p><button class="ghost" id="btn-alerta-exemplo">Enviar alerta de exemplo</button></p>
+        <p><small>Use as notificações para avisar sobre fechamentos, greves e promoções próximas.</small></p>
+      </article>
+    </section>
+
+    <section id="servicos" class="hidden">
+      <h2>Guia local de serviços</h2>
+      <article class="card">
+        <h3>Hospedagens & Essenciais</h3>
+        <p>Veja avaliações, comentários e serviços essenciais próximos.</p>
+        <section id="lista-servicos"></section>
+      </article>
+    </section>
+
+    <section id="comunidade" class="hidden">
+      <h2>Comunidade & dicas</h2>
+      <article class="card">
+        <form id="form-post">
+          <label for="post-nome">Seu nome (opcional)</label>
+          <input id="post-nome" type="text" placeholder="Ex: Ana">
+          <label for="post-texto">Sua dica</label>
+          <textarea id="post-texto" required placeholder="Escreva sua dica de viagem..."></textarea>
+          <label for="post-foto">Foto (opcional)</label>
+          <input id="post-foto" type="file" accept="image/*">
+          <button class="primary">Publicar</button>
+        </form>
+      </article>
+      <article class="card">
+        <h3>Feed</h3>
+        <section id="feed"></section>
+      </article>
+    </section>
+
+    <section id="conversor" class="hidden">
+      <h2>Câmbio & Tradutor</h2>
+      <article class="card" id="grid-two">
+        <section>
+          <h3>Conversor de moedas</h3>
+          <form id="form-cambio">
+            <label for="moeda-from">De</label>
+            <select id="moeda-from">
+              <option>BRL</option><option>USD</option><option>EUR</option><option>GBP</option><option>ARS</option><option>CLP</option>
+            </select>
+            <label for="moeda-to">Para</label>
+            <select id="moeda-to">
+              <option>USD</option><option>BRL</option><option>EUR</option><option>GBP</option><option>ARS</option><option>CLP</option>
+            </select>
+            <label for="valor">Valor</label>
+            <input id="valor" type="number" step="0.01" value="100">
+            <p><button class="primary" type="submit">Converter</button>
+               <button class="ghost" type="button" id="btn-atualizar-taxas">Atualizar taxas</button></p>
+            <p id="resultado-cambio">—</p>
+          </form>
+        </section>
+        <aside>
+          <h3>Frases úteis</h3>
+          <form id="form-frases">
+            <label for="idioma">Idioma</label>
+            <select id="idioma">
+              <option value="en">Inglês</option>
+              <option value="es">Espanhol</option>
+              <option value="fr">Francês</option>
+            </select>
+            <p><button class="ghost" type="submit">Mostrar frases</button></p>
+          </form>
+          <section id="frases-lista"></section>
+        </aside>
+      </article>
+    </section>
+
+    <section id="checklist" class="hidden">
+      <h2>Checklist de viagem</h2>
+      <article class="card">
+        <form id="form-item">
+          <label for="item-texto">Novo item</label>
+          <input id="item-texto" type="text" placeholder="Passaporte, carregador, seguro, vacina..." required>
+          <p>
+            <label for="item-data">Data limite</label>
+            <input id="item-data" type="date">
+          </p>
+          <button class="primary">Adicionar</button>
+        </form>
+        <ul class="todo" id="lista-itens"></ul>
+        <p>
+          <button class="ghost" id="btn-limpar-itens">Limpar todos</button>
+        </p>
+      </article>
+    </section>
+
+    <section id="transporte" class="hidden">
+      <h2>Transporte</h2>
+      <article class="card">
+        <h3>Opções por perto</h3>
+        <section id="transporte-opcoes">
+          <p>Veja ônibus, metrô, táxis, caronas, bikes e patinetes. Use o mapa para rotas.</p>
+        </section>
+        <h3>Aluguéis</h3>
+        <form id="form-aluguel">
+          <label for="tipo-aluguel">Tipo</label>
+          <select id="tipo-aluguel">
+            <option>bike</option><option>patinete</option><option>carro</option>
+          </select>
+          <label for="dias-aluguel">Dias</label>
+          <input id="dias-aluguel" type="number" min="1" value="1">
+          <button class="primary">Pesquisar</button>
+        </form>
+        <section id="resultado-aluguel"></section>
+      </article>
+    </section>
+
+    <section id="offline" class="hidden">
+      <h2>Modo Offline</h2>
+      <article class="card">
+        <p>Este app funciona offline (PWA). Abra as seções que deseja usar sem internet para armazená-las em cache. O mapa tenta guardar os últimos blocos vistos.</p>
+        <p><button class="ghost" id="btn-install">Instalar app</button></p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="ano"></span> ViajeAqui &gt;.</p>
+  </footer>
+
+  <script src="utils.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
