@@ -1,73 +1,17 @@
-# Welcome to your Lovable project
+# ViajeAQUI
+Texto explicativo
 
-## Project info
+O projeto ViajeAqui nasce com a proposta de criar uma plataforma digital inteligente para auxiliar viajantes em suas experiências turísticas, oferecendo informações personalizadas de acordo com a localização do usuário e seus interesses. A ferramenta integra funcionalidades como recomendações de pontos turísticos, serviços essenciais, roteiros customizados, informações em tempo real, conversor de moedas, tradutor básico e checklist de viagem. Além disso, promove a interação entre visitantes e moradores locais, valorizando a cultura regional por meio de dicas e relatos autênticos.
 
-**URL**: https://lovable.dev/projects/a085d81b-c16c-46d5-b783-fab9b66ccaa1
+O site se diferencia por disponibilizar recursos práticos tanto para turistas quanto para a comunidade receptora. Ao oferecer um mapa interativo e roteiros personalizados, o projeto estimula o turismo sustentável e inclusivo, respeitando perfis diversos de viajantes (famílias, aventureiros, pessoas com orçamento limitado, entre outros). Com a integração de transporte e serviços, também busca facilitar a mobilidade urbana e o acesso a informações úteis, fortalecendo o comércio e os pequenos empreendedores locais.
 
-## How can I edit this code?
+Esse projeto pode ser caracterizado como extensionista porque conecta saberes acadêmicos às demandas reais da sociedade. Ele extrapola os muros da instituição de ensino ao aplicar conhecimentos de tecnologia, design, geografia, turismo e comunicação para criar uma solução com impacto direto na comunidade. O ViajeAqui não se restringe a oferecer apenas uma experiência digital: ele contribui para o desenvolvimento local, fomenta o turismo regional, incentiva a economia criativa e promove a troca de saberes entre estudantes, professores, moradores e viajantes.
 
-There are several ways of editing your application.
+Além disso, trata-se de uma iniciativa com potencial de inclusão social, já que possibilita acesso facilitado a informações por meio do modo offline, garante orientações úteis para pessoas de diferentes idiomas e perfis, e valoriza o conhecimento dos próprios moradores como protagonistas do turismo local. Dessa forma, o projeto assume papel transformador, unindo inovação tecnológica, impacto social e desenvolvimento cultural e econômico, alinhando-se plenamente aos princípios de um projeto de extensão universitária.
 
-**Use Lovable**
+<img width="1896" height="900" alt="image" src="https://github.com/user-attachments/assets/53335887-b63d-4a2b-9525-d85bff7e4b77" />
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a085d81b-c16c-46d5-b783-fab9b66ccaa1) and start prompting.
+<img width="1868" height="892" alt="image" src="https://github.com/user-attachments/assets/657f26b7-88c0-4ffb-8460-cb8b9ad09c61" />
 
-Changes made via Lovable will be committed automatically to this repo.
+<img width="1902" height="883" alt="image" src="https://github.com/user-attachments/assets/ab06c0a9-0637-41a8-9240-7765a6432995" />
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/a085d81b-c16c-46d5-b783-fab9b66ccaa1) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
