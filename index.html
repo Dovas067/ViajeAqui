@@ -84,19 +84,19 @@
           <input id="dias" type="number" min="1" max="30" value="3" required>
           <label for="interesses">Interesses</label>
           <select id="interesses" multiple>
-            <option value="natureza">natureza</option>
-            <option value="cultura">cultura</option>
-            <option value="gastronomia">gastronomia</option>
-            <option value="esportes">esportes</option>
-            <option value="compras">compras</option>
+            <option>natureza</option>
+            <option>cultura</option>
+            <option>gastronomia</option>
+            <option>esportes</option>
+            <option>compras</option>
           </select>
           <label for="orcamento">Orçamento (por dia, em moeda local)</label>
           <input id="orcamento" type="number" min="0" placeholder="Ex: 300">
           <label for="estilo">Estilo de viagem</label>
           <select id="estilo">
-            <option value="calmo">calmo</option>
-            <option value="aventureiro">aventureiro</option>
-            <option value="familia">família</option>
+            <option>calmo</option>
+            <option>aventureiro</option>
+            <option>família</option>
           </select>
           <button type="submit" class="primary">Gerar roteiro</button>
           <button id="btn-baixar-roteiro" type="button" class="ghost">Baixar roteiro (.txt)</button>
@@ -105,10 +105,6 @@
       <article class="card" id="resultado-roteiro">
         <h3>Seu roteiro</h3>
         <section id="roteiro-lista">Preencha o formulário para gerar.</section>
-      </article>
-      <article class="card">
-        <h3>Meus roteiros salvos</h3>
-        <ul id="roteiros-salvos"></ul>
       </article>
     </section>
 
@@ -163,16 +159,17 @@
           <form id="form-cambio">
             <label for="moeda-from">De</label>
             <select id="moeda-from">
-              <option>BRL</option><option>USD</option><option>EUR</option><option>GBP</option><option>ARS</option><option>CLP</option>
+              <option>BRL</option>
+              <option>USD</option>
             </select>
             <label for="moeda-to">Para</label>
             <select id="moeda-to">
-              <option>USD</option><option>BRL</option><option>EUR</option><option>GBP</option><option>ARS</option><option>CLP</option>
+              <option>USD</option>
+              <option>BRL</option>
             </select>
             <label for="valor">Valor</label>
             <input id="valor" type="number" step="0.01" value="100">
-            <p><button class="primary" type="submit">Converter</button>
-               <button class="ghost" type="button" id="btn-atualizar-taxas">Atualizar taxas</button></p>
+            <p><button class="primary" type="submit">Converter</button></p>
             <p id="resultado-cambio">—</p>
           </form>
         </section>
@@ -242,10 +239,9 @@
   </main>
 
   <footer>
-    <p>&copy; <span id="ano"></span> ViajeAqui &gt;.</p>
+    <p>&copy; <span id="ano"></span> ViajeAqui</p>
   </footer>
 
-  <script src="utils.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
