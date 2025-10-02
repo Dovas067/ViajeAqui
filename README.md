@@ -1,20 +1,179 @@
-# ViajeAQUI
-Texto explicativo
+# 🌍 ViajeAqui — Guia Inteligente de Viagens (PWA)
 
-O projeto ViajeAqui surge com a proposta de desenvolver uma plataforma digital inteligente voltada para a experiência de viajantes, oferecendo informações personalizadas de acordo com a localização geográfica do usuário e seus interesses específicos. A ferramenta integra recursos modernos e de fácil acesso, como recomendações de pontos turísticos, serviços essenciais próximos, roteiros customizados, informações em tempo real, conversor de moedas, tradutor básico e checklist de viagem.
+## 🧠 1. Processo de Ideação
 
-Mais do que um guia turístico digital, o ViajeAqui se diferencia por conectar turistas e comunidade local. O projeto valoriza a cultura regional ao reunir dicas e relatos autênticos de moradores, permitindo que o visitante viva experiências únicas e verdadeiramente imersivas. Ao mesmo tempo, oferece um mapa interativo e roteiros personalizados, que atendem diferentes perfis de viajantes — famílias, aventureiros, mochileiros, pessoas com mobilidade reduzida ou orçamento limitado —, promovendo um turismo sustentável, inclusivo e acessível.
+O projeto nasceu a partir da seguinte questão norteadora:  
+**Como facilitar a vida de viajantes, unindo em um único aplicativo funcionalidades essenciais para turismo, planejamento e organização?**
 
-Outro ponto de destaque é a integração de transporte e serviços, que facilita a mobilidade urbana e o acesso a informações úteis. Isso fortalece o comércio local e amplia as oportunidades para pequenos empreendedores, estimulando a economia criativa e a circulação de renda na própria região.
+Durante a fase de ideação, foram levantados problemas comuns enfrentados por turistas:
+- Dificuldade em encontrar atrações próximas de forma rápida.
+- Necessidade de **roteiros personalizados** segundo dias, interesses e orçamento.
+- Acesso a **clima em tempo real**.
+- Conversão de moedas e comunicação em outros idiomas.
+- Organização de **checklists de viagem**.
+- Falta de recursos **offline** durante deslocamentos.
+- Desejo de compartilhar dicas com outros viajantes.
 
-O ViajeAqui também se caracteriza como um projeto extensionista, pois extrapola os muros da instituição de ensino e aplica conhecimentos de tecnologia, design, geografia, turismo e comunicação para responder a demandas reais da sociedade. Ele não se limita a fornecer uma experiência digital inovadora, mas atua como uma ferramenta de transformação social, ao promover o desenvolvimento local, incentivar o turismo regional e aproximar estudantes, professores, moradores e visitantes em um processo de troca de saberes.
+A resposta foi criar o **ViajeAqui**: um **aplicativo web progressivo (PWA)** que funciona em qualquer navegador, leve e acessível, combinando mapas, roteiros, clima, câmbio, frases úteis, checklist e uma pequena rede comunitária.
 
-Além disso, a iniciativa possui forte potencial de inclusão social. Com funcionalidades de acesso offline, suporte multilíngue e recursos adaptados a diferentes perfis de usuários, garante que mais pessoas possam usufruir das informações oferecidas. Ao valorizar o conhecimento dos próprios moradores como protagonistas do turismo local, o projeto fortalece a identidade cultural da região e promove um turismo mais humano e participativo.
+---
 
-Assim, o ViajeAqui consolida-se como uma proposta que une inovação tecnológica, impacto social, desenvolvimento cultural e crescimento econômico, alinhando-se plenamente aos princípios de um projeto de extensão universitária comprometido com a transformação da realidade social.
-<img width="1896" height="900" alt="image" src="https://github.com/user-attachments/assets/53335887-b63d-4a2b-9525-d85bff7e4b77" />
+## 📐 2. Protótipo Inicial
 
-<img width="1868" height="892" alt="image" src="https://github.com/user-attachments/assets/657f26b7-88c0-4ffb-8460-cb8b9ad09c61" />
+O protótipo inicial foi desenvolvido com:
+- **HTML5 + CSS3** (responsivo e acessível).
+- **JavaScript Vanilla** (sem frameworks complexos).
+- **Leaflet.js** para mapas interativos.
+- **APIs públicas** como OpenStreetMap e Open-Meteo.
 
-<img width="1902" height="883" alt="image" src="https://github.com/user-attachments/assets/ab06c0a9-0637-41a8-9240-7765a6432995" />
+### Estrutura planejada
+- **Cabeçalho fixo** com navegação por seções.
+- **Cards** para agrupar informações (clima, roteiros, dicas).
+- **Seções SPA** controladas por hash (`#home`, `#mapa`, etc.).
+- **Modo offline** via Service Worker.
 
+> Exemplo de wireframe inicial:
+>
+> ![Protótipo — Wireframe](https://i.ibb.co/zVdRw6m/prototipo-wireframe.png)
+
+---
+
+## 🌎 3. Caráter Extensionista
+
+Este projeto tem caráter **extensionista** porque:
+- É **gratuito, aberto e acessível** em qualquer navegador.
+- Funciona como **PWA**: pode ser instalado e usado **offline**.
+- Reaproveita **APIs públicas** e dados comunitários (OpenStreetMap, Overpass, Open-Meteo).
+- Possibilita o uso em **oficinas de turismo e tecnologia**, ampliando a inclusão digital.
+- Estimula o **compartilhamento comunitário** de dicas, fortalecendo a colaboração entre viajantes.
+- Pode ser replicado em contextos educacionais, servindo como exemplo prático de integração entre **web, turismo e inovação social**.
+
+---
+
+## 💻 4. Tutorial do Código Desenvolvido
+
+### Estrutura de Arquivos
+- **`index.html`** → Estrutura da aplicação em formato SPA:contentReference[oaicite:0]{index=0}.
+- **`styles.css`** → Estilos responsivos e consistentes:contentReference[oaicite:1]{index=1}.
+- **`app.js`** → Lógica principal (mapa, clima, roteiros, checklist, etc.):contentReference[oaicite:2]{index=2}.
+- **`manifest.json`** → Configuração PWA (nome, ícones, cores):contentReference[oaicite:3]{index=3}.
+- **`sw.js`** → Service Worker: cache e funcionamento offline:contentReference[oaicite:4]{index=4}.
+
+---
+
+### 🔎 Navegação SPA
+O site usa **hash routing** para alternar entre seções sem recarregar a página:
+
+```js
+function showSection(id) {
+  sections.forEach(s => s.classList.toggle('hidden', '#' + s.id !== id));
+
+📍 Geolocalização + Mapa
+
+Leaflet.js para renderizar mapas.
+
+Overpass API para buscar atrações próximas (ex: restaurantes, hotéis, farmácias).
+
+Botão "Ativar localização" centraliza o mapa no usuário.
+
+let map = L.map('map').setView([0,0], 2);
+navigator.geolocation.getCurrentPosition((pos) => {
+  const { latitude, longitude } = pos.coords;
+  userMarker = L.marker([latitude, longitude]).addTo(map).bindPopup('Você está aqui');
+  map.setView([latitude, longitude], 15);
+});
+
+☁️ Clima em Tempo Real
+
+Usa a API Open-Meteo para clima atual e previsão de 48h.
+
+async function fetchWeather(lat, lon) {
+  const url = `https://api.open-meteo.com/v1/forecast?...`;
+  const r = await fetch(url);
+  const j = await r.json();
+  const t = j.current.temperature_2m;
+  document.getElementById('tempo-resumo').textContent = `${t}°C`;
+}
+
+
+📝 Roteiros Personalizados
+
+O usuário escolhe dias, interesses, orçamento e estilo → o app gera sugestões automáticas.
+
+Possibilidade de baixar o roteiro em TXT.
+
+Exemplo de geração:
+
+function gerarRoteiroTexto(dias, interesses, orc, estilo) {
+  let texto = `Roteiro — estilo ${estilo}\n`;
+  for (let d=1; d<=dias; d++) {
+    texto += `Dia ${d}: ${interesses.join(' • ')}`;
+  }
+  return texto;
+}
+
+💵 Conversor de Moedas
+
+Conversão BRL ⇄ USD usando taxa fixa de 1 USD = 5.60 BRL.
+
+let taxas = { USD: { BRL: 5.60 }, BRL: { USD: 1/5.60 } };
+
+
+💬 Frases Úteis
+
+Frases rápidas em Inglês, Espanhol e Francês, exibidas sob demanda.
+
+const frases = { en: ['Hello, please.'], es: ['Hola, por favor.'], fr: ['Bonjour, s’il vous plaît.'] };
+
+
+✅ Checklist de Viagem
+
+Lista persistida no localStorage.
+Permite adicionar itens, marcar concluídos e limpar.
+
+function renderChecklist(){
+  const list = JSON.parse(localStorage.getItem('viajeaqui_checklist')||'[]');
+}
+
+👥 Comunidade
+
+Usuários podem postar dicas + fotos.
+Os posts ficam salvos localmente e renderizados como cards.
+
+const feed = JSON.parse(localStorage.getItem('viajeaqui_feed')||'[]');
+
+
+🚲 Transporte
+
+Simulação de aluguel de bike, patinete ou carro com cálculo de preço.
+
+📶 PWA (Modo Offline)
+
+manifest.json: define nome, ícones e cores do app . 
+
+sw.js: salva arquivos essenciais em cache para uso offline . 
+
+🏁 5. Conclusão — Aprendizados
+
+Com o desenvolvimento do ViajeAqui, os aprendizados foram:
+
+Como criar uma SPA leve sem frameworks.
+
+Uso prático de APIs públicas (clima, mapas, dados comunitários).
+
+Integração de Leaflet.js para mapas interativos.
+
+Criação de um PWA funcional com Service Workers.
+
+Implementação de funcionalidades reais de apoio a viajantes.
+
+Reflexão sobre o impacto social e extensionista da tecnologia.
+
+. Integrante
+
+Joaquim Cunha 1 — RA: 10735780
+
+
+
+}
+window.addEventListener('hashchange', () => showSection(location.hash || '#home'));
