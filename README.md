@@ -177,3 +177,10 @@ Joaquim Cunha 1 — RA: 10735780
 
 }
 window.addEventListener('hashchange', () => showSection(location.hash || '#home'));
+
+<img width="1908" height="896" alt="image" src="https://github.com/user-attachments/assets/8cfdbf71-6d69-4e20-b2f6-c29639752f22" />
+<img width="1915" height="888" alt="image" src="https://github.com/user-attachments/assets/f11ef43c-bf6f-4d6a-8a0c-1c45d38b0b12" />
+<img width="1898" height="912" alt="image" src="https://github.com/user-attachments/assets/c567964d-a733-46ab-8d56-fe2ee7ae3a81" />
+
+
+
